@@ -20,9 +20,16 @@ type TextProps<T extends ElementType> = IText<T> &
 export const Text = <C extends ElementType = "span">({
   as,
   children,
+  color,
+  style,
   ...props
 }: TextProps<C>) => {
   const Component = as || "span";
+  const internalStyles = color ? { style: { ...style, color } } : {};
 
-  return <Component {...props}>{children}</Component>;
+  return (
+    <Component {...props} {...internalStyles}>
+      {children}
+    </Component>
+  );
 };

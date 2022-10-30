@@ -1,7 +1,9 @@
 import { ReactText } from "react";
 import { Text } from "./components";
 
-const Emphasis = ({ children }: { children: ReactText }) => <em>{children}</em>;
+const Emphasis = ({ children, ...props }: { children: ReactText }) => (
+  <em {...props}>{children}</em>
+);
 
 function App() {
   return (
@@ -10,7 +12,9 @@ function App() {
         hello world
       </Text>
       <hr />
-      <Text as={Emphasis}>You are Awesome!</Text>
+      <Text as={Emphasis} color="red">
+        You are Awesome!
+      </Text>
     </div>
   );
 }
