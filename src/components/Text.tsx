@@ -1,13 +1,28 @@
-import { ElementType, ReactNode } from "react";
+import { ComponentPropsWithoutRef, ElementType } from "react";
 
-export const Text = <C extends ElementType>({
+type Rainbow =
+  | "red"
+  | "orange"
+  | "yellow"
+  | "green"
+  | "blue"
+  | "indigo"
+  | "violet";
+
+type IText<T extends ElementType> = {
+  as?: T;
+  color?: Rainbow | "black";
+};
+
+type TextProps<T extends ElementType> = IText<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof IText<T>>;
+
+export const Text = <C extends ElementType = "span">({
   as,
   children,
-}: {
-  as?: C;
-  children: ReactNode;
-}) => {
+  ...props
+}: TextProps<C>) => {
   const Component = as || "span";
 
-  return <Component>{children}</Component>;
+  return <Component {...props}>{children}</Component>;
 };
